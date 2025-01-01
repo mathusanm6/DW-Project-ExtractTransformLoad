@@ -1,0 +1,6 @@
+# Ignore python env
+*env/
+data/
+db/
+
+.DS_Store

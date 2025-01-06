@@ -1,6 +1,7 @@
 import os
+import shutil
 
-
+py_interp = shutil.which('python') or shutil.which('python3')
 def print_colored(message, color_code):
     """Prints a message in the specified color."""
     print(f"\033[{color_code}m{message}\033[0m")
@@ -10,13 +11,16 @@ def run_etl():
     print_colored("\n===========================", "34")
     print_colored("    Starting ETL Process", "34")
     print_colored("===========================\n", "34")
-    print_colored("Extracting data...", "33")
-    os.system("python extract.py")
-    print_colored("Transforming data...", "33")
-    os.system("python transform.py")
-    print_colored("Loading data...", "33")
-    os.system("python load.py")
-    print_colored("\nETL process complete.\n", "32")
+    if py_interp:
+        print_colored("Extracting data...", "33")
+        os.system(f"{py_interp} extract.py")
+        print_colored("Transforming data...", "33")
+        os.system(f"{py_interp} transform.py")
+        print_colored("Loading data...", "33")
+        os.system(f"{py_interp} load.py")
+        print_colored("\nETL process complete.\n", "32")
+    else:
+        print('No python interpreter found')
 
 
 def run_analysis():

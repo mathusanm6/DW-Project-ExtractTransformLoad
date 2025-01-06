@@ -49,7 +49,7 @@ Twitch, Steam, IGDB
 Multiple source with heterogenous columns
 ### ETL Pipeline Design
 #### Tools and Technologies used
-Python lanugage, libraries: numpy, panda, matplolib, sqlite3, requets, os
+Python lanugage, libraries: numpy, panda, matplolib, sqlite3, requets, os, shutil
 #### Architecture
 TODO
 

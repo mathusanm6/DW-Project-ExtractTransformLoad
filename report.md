@@ -68,10 +68,18 @@ Accessing video game platform database with requests API
 - Handle game features including timestamp to date and genre_id list to genre table
 - Retrieve genre type of games from IGDB v4 with requests query
 - Retrieving numbers of concurrent players from steam with requests query
-- Saving datas as csv files in a local repository
+- Saving datas as csv files in local data repository
 
 #### Transform Phase
-pandas dataframe to join, build features and clean data
+In this part, we are going to aggregate all of our data table in one with pandas and build some features with numpy.
+- Join between steam_data and games_data on id column
+- Join between game_genres and the merged_data on step before, on column id
+- Join genres_data and merged_data on genre_id
+- Build genres_insights which correspond to the average number of players per genre
+- Compute engagement score = rating * log(number of players)
+- Reorganise columns order and names
+- Saving datas as csv files in local data repository 
+
 #### Load Phase
 Using sqlite3 API to load cleaned data to SQLite database
 

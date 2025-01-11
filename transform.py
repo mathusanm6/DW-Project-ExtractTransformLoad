@@ -9,10 +9,11 @@ def transform_data():
     game_genres_data = pd.read_csv("data/game_genres.csv")
     genres_data = pd.read_csv("data/genres_data.csv")
 
-    # Merge on game name (may require normalization for better matching)
+    # Merge on game id
     merged_data = pd.merge(
-        steam_data, games_data, left_on="game_name", right_on="name", how="inner"
+        steam_data, games_data, left_on="game_id", right_on="id", how="inner"
     )
+    assert(merged_data['id'].is_unique==True)
 
     # Join with game_genres_data to associate genres with games
     merged_data_with_genres = pd.merge(

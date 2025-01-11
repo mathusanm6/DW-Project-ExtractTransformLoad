@@ -31,8 +31,8 @@ Submission date: January 20 2025
 
 
 ### Abstract
-The Datawarehouse2 course goal is to learn through a project how to works and build an ETL (extract, transform, load).  
-The Datasets used are datasets of video games sales from Twitch, Steam and IGDB.  
+The Datawarehouse2 course goal is to learn through a project how to build an ETL and does ETL works (extract, transform, load).  
+The Datasets used are datasets of video popularity from IGDB and number of players from Steam using Twitch credentials access.  
 Key transformations are: join datasets, calculate feature (average player counts by genre, engagement score and dropping unecessary columns).  
 The result is a dashboard, description TODO.  
 
@@ -44,18 +44,32 @@ TODO
 
 ### Dataset Overview
 #### Source of Data
-Twitch, Steam, IGDB
+Steam, IGDB
 #### Dataset Challenges
 Multiple source with heterogenous columns
 ### ETL Pipeline Design
+extract.py
+transform.py
+load.py
+analyze.py
+main.py
 #### Tools and Technologies used
 Python lanugage, libraries: numpy, panda, matplolib, sqlite3, requets, os, shutil
 #### Architecture
 TODO
 
 ### Implementation details
+
 #### Extract Phase
-Accessing video game platform db with requests API
+Accessing video game platform database with requests API
+- Getting access token with twitch personal credentials
+- Sending and make the right query to IGDB v4
+- Filter the game data to fetch according to a popularity threshold
+- Handle game features including timestamp to date and genre_id list to genre table
+- Retrieve genre type of games from IGDB v4 with requests query
+- Retrieving numbers of concurrent players from steam with requests query
+- Saving datas as csv files in a local repository
+
 #### Transform Phase
 pandas dataframe to join, build features and clean data
 #### Load Phase
@@ -69,7 +83,7 @@ TODO
 ### Performance Metrics
 TODO
 ### Challenges Faced and Solutions
-TODO
+Learn a new way to fetch video games data through their specific API and understand their parameters.
 ### Future Improvements
 TODO
 ### Conclusion

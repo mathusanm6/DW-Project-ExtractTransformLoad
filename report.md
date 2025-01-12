@@ -1,7 +1,7 @@
-# Building and ETL pipeline
+# Building an ETL pipeline
 
 Contributors: Mathusan Selvakumar, Jewin Cheng  
-Course: Datawarehouse2 by A. Touil  
+Course: Data Warehouse II by A. Touil  
 Submission date: January 20 2025  
 
 ## Table of Contents
@@ -31,14 +31,14 @@ Submission date: January 20 2025
 
 
 ### Abstract
-The Datawarehouse2 course goal is to learn through a project how to build an ETL and does ETL works (extract, transform, load).  
-The Datasets used are datasets of video popularity from IGDB and number of players from Steam using Twitch credentials access.  
-Key transformations are: join datasets, calculate feature (average player counts by genre, engagement score and dropping unecessary columns).  
-The result is a dashboard, description TODO.  
+The Data Warehouse II course goal is to build an ETL pipeline (extract, transform, load) in order to learn how it's key components.  
+Datasets was built through https requests to IGDB API (Internet Games Database) and to Steam API.  
+Some of the key transformations are: join datasets, calculate features (average player counts by genre, engagement score and dropping unnecessary columns).  
+The end result is shown through a dashboard, description TODO.  
 
 ### Introduction
 #### Objective
-The objective of this course is to have an introduction of Datawarehouse concepts through a scholar project. We need to build an ETL from scratch whatever the tools used.  
+The objective of this course is to have an introduction of Data Warehouse concepts through a scholar project. We had to build an ETL from scratch whatever the tools used might be.  
 #### Background
 TODO
 
@@ -68,7 +68,7 @@ Accessing video game platform database with requests API
 - Handle game features including timestamp to date and genre_id list to genre table
 - Retrieve genre type of games from IGDB v4 with requests query
 - Retrieving numbers of concurrent players from steam with requests query
-- Saving datas as csv files in local data repository
+- Saving data as csv files in local data repository
 
 #### Transform Phase
 In this part, we are going to aggregate all of our data table in one with pandas and build some features with numpy.

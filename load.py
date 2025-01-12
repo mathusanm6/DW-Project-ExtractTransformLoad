@@ -11,12 +11,12 @@ def load_to_sqlite():
     
     conn = sqlite3.connect(db_path)
     final_data = pd.read_csv("data/final_data.csv")
-    genres_data = pd.read_csv("data/genres_data.csv")
-    game_genres_data = pd.read_csv("data/game_genres.csv")
+    #genres_data = pd.read_csv("data/genres_data.csv")
+    #game_genres_data = pd.read_csv("data/game_genres.csv")
 
     final_data.to_sql("games", conn, if_exists="replace", index=False)
-    genres_data.to_sql("genres", conn, if_exists="replace", index=False)
-    game_genres_data.to_sql("game_genres", conn, if_exists="replace", index=False)
+    #genres_data.to_sql("genres", conn, if_exists="replace", index=False)
+    #game_genres_data.to_sql("game_genres", conn, if_exists="replace", index=False)
 
     conn.close()
 

@@ -8,29 +8,36 @@ def create_dashboard():
     conn = sqlite3.connect("db/games_data.db")
 
     # Load data
-    games = pd.read_sql("SELECT * FROM games", conn)
-    genres = pd.read_sql("SELECT * FROM genres", conn)
-    game_genres = pd.read_sql("SELECT * FROM game_genres", conn)
+    games_with_genres = pd.read_sql("SELECT * FROM games", conn)
+    #genres = pd.read_sql("SELECT * FROM genres", conn)
+    #game_genres = pd.read_sql("SELECT * FROM game_genres", conn)
 
-    # Merge data for visualization
+    '''
     games_with_genres = pd.merge(
         games, game_genres, left_on="IGDB Game ID", right_on="game_id"
     )
     games_with_genres = pd.merge(
         games_with_genres, genres, left_on="genre_id", right_on="genre_id"
-    )
+    )'''
 
     # Aggregate ratings by genre
-    avg_ratings = games_with_genres.groupby("genre_name")["Rating"].mean().reset_index()
+    avg_ratings = games_with_genres.groupby("Genre Name")["Rating"].mean().reset_index()
     avg_ratings = avg_ratings.sort_values(by="Rating", ascending=False)
+    
+    # Calculate average player counts by genre
+    avg_players_by_genre = (
+        games_with_genres.groupby("Genre Name")["Current Players"]
+        .mean()
+        .reset_index()
+    )
 
     # Create a bar chart
     fig = px.bar(
         avg_ratings,
-        x="genre_name",
+        x="Genre Name",
         y="Rating",
         title="Average Rating by Genre",
-        labels={"genre_name": "Genre", "Rating": "Average Rating"},
+        labels={"Genre Name": "Genre", "Rating": "Average Rating"},
         color="Rating",
         color_continuous_scale="Viridis",
         template="simple_white",

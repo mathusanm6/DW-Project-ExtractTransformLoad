@@ -31,22 +31,15 @@ def transform_data():
         how="inner",
     )
 
-    # Calculate average player counts by genre
-    avg_players_by_genre = (
-        merged_data_with_genres.groupby("genre_name")["current_players"]
-        .mean()
-        .reset_index()
-    )
-
     # Calculate engagement score
-    merged_data["engagement_score"] = merged_data["rating"] * np.log1p(merged_data["current_players"])
+    merged_data_with_genres["engagement_score"] = merged_data_with_genres["rating"] * np.log1p(merged_data_with_genres["current_players"])
 
 
     # Drop unnecessary columns
-    merged_data.drop(columns=["name", "id"], inplace=True)
+    merged_data_with_genres.drop(columns=["name", "id"], inplace=True)
 
     # Reorganize columns with coherent order and names
-    merged_data = merged_data[
+    merged_data_with_genres = merged_data_with_genres[
         [
             "game_id",
             "game_name",
@@ -57,9 +50,11 @@ def transform_data():
             "total_rating",
             "total_rating_count",
             "engagement_score",
+            "genre_id",
+            "genre_name"
         ]
     ]
-    merged_data.rename(
+    merged_data_with_genres.rename(
         columns={
             "game_id": "IGDB Game ID",
             "game_name": "Game Name",
@@ -70,14 +65,15 @@ def transform_data():
             "total_rating": "Total Rating With Critic Reviews",
             "total_rating_count": "Rating Count",
             "engagement_score": "Engagement Score",
+            "genre_id": "Genre ID",
+            "genre_name" : "Genre Name"
         },
         inplace=True,
     )
 
-    return merged_data, avg_players_by_genre
+    return merged_data_with_genres
 
 
 if __name__ == "__main__":
-    final_data, genre_insights = transform_data()
+    final_data = transform_data()
     final_data.to_csv("data/final_data.csv", index=False)
-    genre_insights.to_csv("data/genre_insights.csv", index=False)

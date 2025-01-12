@@ -75,10 +75,9 @@ In this part, we are going to aggregate all of our data table in one with pandas
 - Join between steam_data and games_data on id column
 - Join between game_genres and the merged_data on step before, on column id
 - Join genres_data and merged_data on genre_id
-- Build genres_insights which correspond to the average number of players per genre
 - Compute engagement score = rating * log(number of players)
 - Reorganise columns order and names
-- Saving datas as csv files in local data repository 
+- Saving merged_data as csv file in local data repository 
 
 #### Load Phase
 Using pandas and sqlite3 API to load cleaned data to SQLite database.
@@ -89,16 +88,23 @@ Using pandas and sqlite3 API to load cleaned data to SQLite database.
 - Close connection
 
 ### Results and Evaluation
-TODO
+The results and evaluation is produced by analyze.py file.
+In this part, we are fetching data from our SQLite database then compute some graph to look for game insights on genre.
 
 ### Key Findings
-TODO
+Every video game genre are equally popular to gamers but we can see that the most popular is the Tactical, followed by Turn-based stategy and RPG.
+
 ### Performance Metrics
 TODO
 ### Challenges Faced and Solutions
 Learn a new way to fetch video games data through their specific API and understand their parameters.
+Make possible the merge of multiple sources of data and compute relevant features.
 ### Future Improvements
-TODO
+Add more source of data for PC
+Expand to different platforms like console (Playstation, Xbox, Nintendo's consoles).
+Add a time dimensionality to get the 21st century trend.
+Add a streamed popularity games
+
 ### Conclusion
 TODO
 ### References

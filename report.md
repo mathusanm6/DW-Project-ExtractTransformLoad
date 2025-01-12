@@ -81,7 +81,12 @@ In this part, we are going to aggregate all of our data table in one with pandas
 - Saving datas as csv files in local data repository 
 
 #### Load Phase
-Using sqlite3 API to load cleaned data to SQLite database
+Using pandas and sqlite3 API to load cleaned data to SQLite database.
+- Check if games_data database exist in local, if not create it
+- Fetch cleaned data from data repository with pandas
+- Create connection to games_data database with sqlite api
+- Replace/Load cleaned data in database
+- Close connection
 
 ### Results and Evaluation
 TODO

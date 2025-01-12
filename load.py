@@ -9,7 +9,7 @@ def load_to_sqlite():
     if not os.path.exists(os.path.dirname(db_path)):
         os.makedirs(os.path.dirname(db_path), exist_ok=True)
     
-    conn = sqlite3.connect("db/games_data.db")
+    conn = sqlite3.connect(db_path)
     final_data = pd.read_csv("data/final_data.csv")
     genres_data = pd.read_csv("data/genres_data.csv")
     game_genres_data = pd.read_csv("data/game_genres.csv")

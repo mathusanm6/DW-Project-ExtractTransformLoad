@@ -29,84 +29,135 @@ Submission date: January 20 2025
 10. [References](#references)
 11. [Appendix (Optional)](#appendix-optional)
 
+---
 
 ### Abstract
-The Data Warehouse II course goal is to build an ETL pipeline (extract, transform, load) in order to learn how it's key components.  
-Datasets was built through https requests to IGDB API (Internet Games Database) and to Steam API.  
-Some of the key transformations are: join datasets, calculate features (average player counts by genre, engagement score and dropping unnecessary columns).  
-The end result is shown through a dashboard, description TODO.  
+The Data Warehouse II course focuses on building an ETL pipeline (Extract, Transform, Load) to understand its core components and their role in data warehousing.  
+We utilized datasets sourced through HTTP requests to the IGDB (Internet Games Database) API and the Steam API.  
+Key transformations included joining datasets, calculating derived features such as average player counts by genre and engagement scores, and filtering out unnecessary columns.  
+The final output was presented as a dashboard showcasing game popularity by genre and player engagement trends on games rating.
+
+---
 
 ### Introduction
 #### Objective
-The objective of this course is to have an introduction of Data Warehouse concepts through a scholar project. We had to build an ETL from scratch whatever the tools used might be.  
+The objective of this project was to gain practical experience with Data Warehouse concepts by building an ETL pipeline from scratch. Students were free to choose their tools and methods to demonstrate their understanding of ETL processes.  
+We chose to build this pipeline in Python code to understand deeply the key concepts and to avoid the potential problems of software compatibility with our computers.
+
 #### Background
-TODO
+ETL (Extract, Transform, Load) is a cornerstone of data integration in modern analytics workflows. It involves extracting data from various sources, transforming it into a usable format, and loading it into a database or data warehouse for analysis. This project emphasizes practical implementation, simulating real-world challenges in data engineering.  
+
+---
 
 ### Dataset Overview
+
 #### Source of Data
-Steam, IGDB
+Data was retrieved from two main APIs:  
+1. **IGDB API**: Provided detailed information about video games, including genres, ratings, and release dates.  
+2. **Steam API**: Offered player count data and other gameplay statistics.  
+
 #### Dataset Challenges
-Multiple source with heterogenous columns
+- Heterogeneous data structures and column formats.  
+- Combining datasets from disparate sources while ensuring consistency.  
+
+---
+
 ### ETL Pipeline Design
-extract.py
-transform.py
-load.py
-analyze.py
-main.py
-#### Tools and Technologies used
-Python lanugage, libraries: numpy, panda, matplolib, sqlite3, requets, os, shutil
+
+The pipeline was divided into separate modules for better organization and maintainability:  
+- `extract.py`: Handles data extraction from APIs.  
+- `transform.py`: Implements data cleaning, aggregation, and feature engineering.  
+- `load.py`: Loads the processed data into a SQLite database.  
+- `analyze.py`: Fetches and visualizes insights from the database.  
+- `main.py`: Coordinates the execution of all pipeline stages.  
+
+#### Tools and Technologies Used
+- **Programming Language**: Python  
+- **Libraries**: NumPy, Pandas, Matplotlib, SQLite3, Requests, OS, Shutil  
+
+
 #### Architecture
-TODO
+The architecture is a modular pipeline:  
+1. **Extract Phase**: Collects raw data from APIs and saves it locally as CSV files.  
+2. **Transform Phase**: Cleans and processes the data to create a unified dataset.  
+3. **Load Phase**: Stores the processed data in a SQLite database for analysis.  
+4. **Analysis**: Generates insights through SQL queries and visualizations.  
+
+---
 
 ### Implementation details
 
 #### Extract Phase
-Accessing video game platform database with requests API
-- Getting access token with twitch personal credentials
-- Sending and make the right query to IGDB v4
-- Filter the game data to fetch according to a popularity threshold
-- Handle game features including timestamp to date and genre_id list to genre table
-- Retrieve genre type of games from IGDB v4 with requests query
-- Retrieving numbers of concurrent players from steam with requests query
-- Saving data as csv files in local data repository
+Accessing video game platform database with requests API : 
+- Obtained access tokens via Twitch credentials for IGDB API.  
+- Queried IGDB v4 for game data filtered by a popularity threshold.
+- Retrieved concurrent player counts from Steam API.  
+- Processed game features, including timestamps and genre mappings.  
+- Stored raw data in a local repository as CSV files.  
 
 #### Transform Phase
 In this part, we are going to aggregate all of our data table in one with pandas and build some features with numpy.
-- Join between steam_data and games_data on id column
-- Join between game_genres and the merged_data on step before, on column id
-- Join genres_data and merged_data on genre_id
-- Compute engagement score = rating * log(number of players)
-- Reorganise columns order and names
-- Saving merged_data as csv file in local data repository 
+- Merged data tables using Pandas:
+  - Steam data joined with DB game data on the `id` column.  
+  - Genre data integrated using the `genre_id` column.  
+- Compute engagement score as `rating * log(number of players)`
+- Reorganized column structure for better usability and data storage.  
+- Saved the cleaned dataset as a CSV file.
 
 #### Load Phase
-Using pandas and sqlite3 API to load cleaned data to SQLite database.
-- Check if games_data database exist in local, if not create it
+- Verified the existence of the SQLite database.  
+- Loaded cleaned data using Pandas into SQLite tables.  
+- Replaced or appended data to maintain database integrity.  
+
+#### Load Phase
+Using pandas and sqlite3 API to load cleaned data to SQLite database:
+- Verified the existence of the SQLite database.
 - Fetch cleaned data from data repository with pandas
 - Create connection to games_data database with sqlite api
-- Replace/Load cleaned data in database
+- Replaced or appended data to maintain database integrity.
 - Close connection
 
-### Results and Evaluation
-The results and evaluation is produced by analyze.py file.
-In this part, we are fetching data from our SQLite database then compute some graph to look for game insights on genre.
+---
+
+### Results, Evaluation
+Using `analyze.py`, we explored genre popularity and player engagement.
+
+---
 
 ### Key Findings
-Every video game genre are equally popular to gamers but we can see that the most popular is the Tactical, followed by Turn-based stategy and RPG.
+- **Tactical games** were the most popular, followed by **Turn-based Strategy** and **RPGs**.  
+- Engagement scores revealed a strong correlation between player counts and high ratings.  
+
+---
 
 ### Performance Metrics
-TODO
+- ETL pipeline process: ~20 secconds
+The query to IGDB and Steam database take most of the time.
+- Querying the SQLite database and running the dashboard take around 4 seconds 
+
+---
+
 ### Challenges Faced and Solutions
 Learn a new way to fetch video games data through their specific API and understand their parameters.
-Make possible the merge of multiple sources of data and compute relevant features.
+- **API Query Limitations**: Managed rate limits by batching requests.
+- **Data Integration**: Ensured schema consistency through preprocessing.  
+
+---
+
 ### Future Improvements
-Add more source of data for PC
-Expand to different platforms like console (Playstation, Xbox, Nintendo's consoles).
-Add a time dimensionality to get the 21st century trend.
-Add a streamed popularity games
+- Integrate other game database for PC platform
+- Incorporate data from other game platforms like PlayStation, Xbox, and Nintendo.  
+- Add temporal dimensions to analyze trends over recent decades.  
+- Explore additional features such as streaming popularity.  
+
+---
 
 ### Conclusion
-TODO
+This project demonstrated the importance of ETL pipelines in building actionable insights from raw data. By integrating APIs, transforming datasets, and storing them in a database, we successfully showcased the power of data engineering for video game analytics.  
+
+---
+
 ### References
-TODO
-### Appendix 
+- IGDB API Documentation: https://api-docs.igdb.com/#getting-started 
+- Steam API Documentation: https://steamcommunity.com/developer/contentguidelines
+

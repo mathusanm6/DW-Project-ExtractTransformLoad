@@ -9,16 +9,6 @@ def create_dashboard():
 
     # Load data
     games_with_genres = pd.read_sql("SELECT * FROM games", conn)
-    #genres = pd.read_sql("SELECT * FROM genres", conn)
-    #game_genres = pd.read_sql("SELECT * FROM game_genres", conn)
-
-    '''
-    games_with_genres = pd.merge(
-        games, game_genres, left_on="IGDB Game ID", right_on="game_id"
-    )
-    games_with_genres = pd.merge(
-        games_with_genres, genres, left_on="genre_id", right_on="genre_id"
-    )'''
 
     # Aggregate ratings by genre
     avg_ratings = games_with_genres.groupby("Genre Name")["Rating"].mean().reset_index()
@@ -29,7 +19,14 @@ def create_dashboard():
         games_with_genres.groupby("Genre Name")["Current Players"]
         .mean()
         .reset_index()
-    )
+    ).sort_values(by='Current Players', ascending=False)
+
+    avg_engagement_score_by_genre = (
+        games_with_genres.groupby("Genre Name")["Engagement Score"]
+        .mean()
+        .reset_index()
+    ).sort_values(by='Engagement Score', ascending=False)
+
 
     # Create a bar chart
     fig = px.bar(
@@ -58,8 +55,20 @@ def create_dashboard():
     )
 
     fig.show()
+
+    fig2 = px.bar(
+        avg_players_by_genre,
+        x="Genre Name",
+        y="Current Players",
+        title="Average Numbers of player by Genre",
+        labels={"Genre Name": "Genre", "Current Players": "Average Nums Player"},
+        color="Current Players",
+        color_continuous_scale="Viridis",
+        template="simple_white"
+    )
+    fig2.show()
     
-    fig2 = px.scatter(
+    fig_scatter = px.scatter(
         games_with_genres,
         x="Current Players",
         y="Engagement Score",
@@ -77,7 +86,7 @@ def create_dashboard():
         color_continuous_scale="Plasma"
     )
 
-    fig2.update_layout(
+    fig_scatter.update_layout(
         title_font=dict(size=22, family="Arial", color="darkblue"),
         xaxis_title_font=dict(size=16, family="Arial", color="black"),
         yaxis_title_font=dict(size=16, family="Arial", color="black"),
@@ -85,7 +94,9 @@ def create_dashboard():
         legend_title=dict(font=dict(size=14, family="Arial"))
     )
 
-    fig2.show()
+    fig_scatter.show()
+
+    
 
     conn.close()
 

@@ -120,14 +120,19 @@ Using pandas and sqlite3 API to load cleaned data to SQLite database:
 ---
 
 ### Results, Evaluation
-Using `analyze.py`, we explored genre popularity and player engagement.
+Using `analyze.py`, we explored genre popularity through the rating, number of players and player's engagement.
+We also compare the player's engagement, the number of players, the rating with the color and the rating count with the circle size.
 
 ---
 
 ### Key Findings
-- **Tactical games** were the most popular, followed by **Turn-based Strategy** and **RPGs**.  
-- Engagement scores revealed a strong correlation between player counts and high ratings.  
-
+- **Turn-based Strategy** games were the most popular, followed by **Tactical games** and **RPGs** in terms of ratings. However, there is not a significant difference between the average ratings of each genre.  
+- The number of players shows greater variation between genres, with the highest peaks observed in **Racing**, **Tactical**, and **Arcade** games.  
+  We noticed that the number of players is not strongly correlated with ratings, as **Racing** and **Arcade** games, which are not the highest-rated, still attract a large number of players.  
+- Finally, the scatter plot reveals the following insights:  
+  1. The player's engagement score increases gradually compared to the number of players.  
+  2. The number of players does not correlate strongly with the number of ratings for a specific game.  
+  3. The most played game is not necessarily the most popular. However, a game with a rating below the median is unlikely to have a large player base.  
 ---
 
 ### Performance Metrics
